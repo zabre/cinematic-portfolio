@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useTransform, type MotionValue, type MotionStyle } from 'framer-motion'
 import type { App } from '@/data/apps'
 
 const SIZE_CLASSES: Record<App['size'], string> = {
@@ -29,12 +29,16 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
   const tileX = useTransform(mouseX, [-1, 1], [-app.depth * 22, app.depth * 22])
   const tileY = useTransform(mouseY, [-1, 1], [-app.depth * 14, app.depth * 14])
 
+  const motionStyle: MotionStyle = {
+    x: tileX,
+    y: tileY,
+    ['--accent' as string]: app.accent,
+    ['--color'  as string]: app.color,
+  }
+
   return (
     <motion.div
       layoutId={app.id}
-      // x & y are Framer Motion props — NOT CSS, must be top-level
-      x={tileX}
-      y={tileY}
       className={`
         relative overflow-hidden rounded-[20px] cursor-pointer
         bg-white/[0.04] border border-white/[0.08]
@@ -42,10 +46,7 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
         ${SIZE_CLASSES[app.size]}
         max-sm:col-span-12
       `}
-      style={{
-        ['--accent' as string]: app.accent,
-        ['--color'  as string]: app.color,
-      }}
+      style={motionStyle}
       initial={{ opacity: 0, y: 30 }}
       animate={{
         opacity: isDimmed ? 0.22 : 1,
