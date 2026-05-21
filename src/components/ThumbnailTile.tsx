@@ -9,9 +9,9 @@ const SIZE_CLASSES: Record<App['size'], string> = {
   small:  'col-span-4 min-h-[220px]',
 }
 
-const SPRING_HOVER   = { type: 'spring', stiffness: 280, damping: 22, mass: 0.8 } as const
-const SPRING_DIM     = { type: 'spring', stiffness: 60,  damping: 20, mass: 1.2 } as const
-const SPRING_FLOAT   = { duration: 3.5, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' }
+const SPRING_HOVER = { type: 'spring', stiffness: 280, damping: 22, mass: 0.8 } as const
+const SPRING_DIM   = { type: 'spring', stiffness: 60,  damping: 20, mass: 1.2 } as const
+const SPRING_FLOAT = { duration: 3.5, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' }
 
 interface Props {
   app: App
@@ -26,27 +26,31 @@ interface Props {
 export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySelected, onSelect }: Props) {
   const isDimmed = isAnySelected && !isSelected
 
-  // Per-tile parallax offset based on its depth value
   const tileX = useTransform(mouseX, [-1, 1], [-app.depth * 22, app.depth * 22])
   const tileY = useTransform(mouseY, [-1, 1], [-app.depth * 14, app.depth * 14])
 
   return (
     <motion.div
       layoutId={app.id}
-      style={{ x: tileX, y: tileY }}
       className={`
         relative overflow-hidden rounded-[20px] cursor-pointer
         bg-white/[0.04] border border-white/[0.08]
         will-change-transform
-        ${ SIZE_CLASSES[app.size] }
+        ${SIZE_CLASSES[app.size]}
         max-sm:col-span-12
       `}
+      style={{
+        x: tileX,
+        y: tileY,
+        '--accent': app.accent,
+        '--color': app.color,
+      } as React.CSSProperties}
       initial={{ opacity: 0, y: 30 }}
       animate={{
-        opacity:   isDimmed ? 0.22 : 1,
-        scale:     isDimmed ? 0.96 : 1,
-        filter:    isDimmed ? 'blur(4px) brightness(0.4)' : 'blur(0px) brightness(1)',
-        y: isDimmed ? 0 : [0, -6 * app.depth, 0],  // idle float
+        opacity: isDimmed ? 0.22 : 1,
+        scale:   isDimmed ? 0.96 : 1,
+        filter:  isDimmed ? 'blur(4px) brightness(0.4)' : 'blur(0px) brightness(1)',
+        y:       isDimmed ? 0 : [0, -6 * app.depth, 0],
       }}
       transition={isDimmed ? SPRING_DIM : {
         opacity: SPRING_HOVER,
@@ -60,13 +64,6 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
         filter: 'brightness(1.15) saturate(1.2)',
         transition: SPRING_HOVER,
       }}
-      style={{
-        x: tileX,
-        y: tileY,
-        animationDelay: `${index * 80}ms`,
-        '--accent': app.accent,
-        '--color': app.color,
-      } as React.CSSProperties}
       onClick={onSelect}
     >
       {/* Colored glow background */}
@@ -79,7 +76,11 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
       <div className="relative z-10 h-full p-7 flex flex-col gap-3">
         <motion.span
           className="text-3xl leading-none"
-          animate={{ filter: [`drop-shadow(0 0 8px ${app.accent}66)`, `drop-shadow(0 0 20px ${app.accent}cc)`, `drop-shadow(0 0 8px ${app.accent}66)`] }}
+          animate={{ filter: [
+            `drop-shadow(0 0 8px ${app.accent}66)`,
+            `drop-shadow(0 0 20px ${app.accent}cc)`,
+            `drop-shadow(0 0 8px ${app.accent}66)`,
+          ]}}
           transition={{ duration: 2.5 + index * 0.3, repeat: Infinity, ease: 'easeInOut' }}
         >
           {app.emoji}
