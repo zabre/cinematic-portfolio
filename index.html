@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abderrazak — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient background -->
+  <div class="ambient" id="ambient"></div>
+  <div class="noise"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <span class="logo">Abderrazak</span>
+      <span class="tagline">Full‑Stack · Data · AI</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-eyebrow">Selected Work</p>
+    <h1 class="hero-title">Web Applications</h1>
+    <p class="hero-sub">Interactive projects in data visualization,<br>NLP, and immersive interfaces.</p>
+  </section>
+
+  <!-- Gallery mosaic -->
+  <main class="gallery" id="gallery">
+    <!-- Cards injected by JS -->
+  </main>
+
+  <!-- Cinematic overlay -->
+  <div class="overlay" id="overlay">
+    <button class="overlay-close" id="overlayClose">&#x2715;</button>
+    <div class="overlay-content" id="overlayContent"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
