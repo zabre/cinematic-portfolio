@@ -32,6 +32,9 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
   return (
     <motion.div
       layoutId={app.id}
+      // x & y are Framer Motion props — NOT CSS, must be top-level
+      x={tileX}
+      y={tileY}
       className={`
         relative overflow-hidden rounded-[20px] cursor-pointer
         bg-white/[0.04] border border-white/[0.08]
@@ -40,11 +43,9 @@ export function ThumbnailTile({ app, index, mouseX, mouseY, isSelected, isAnySel
         max-sm:col-span-12
       `}
       style={{
-        x: tileX,
-        y: tileY,
-        '--accent': app.accent,
-        '--color': app.color,
-      } as React.CSSProperties}
+        ['--accent' as string]: app.accent,
+        ['--color'  as string]: app.color,
+      }}
       initial={{ opacity: 0, y: 30 }}
       animate={{
         opacity: isDimmed ? 0.22 : 1,
