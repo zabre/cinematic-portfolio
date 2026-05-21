@@ -1,49 +1,45 @@
-# Cinematic Portfolio
+# Cinematic Portfolio — Phase 2
 
-Ultra-premium interactive web gallery — **Apple visionOS aesthetic** — presenting my web applications.
+Ultra-premium interactive portfolio — **Apple visionOS aesthetic**  
+Next.js 14 · Framer Motion · Tailwind CSS · TypeScript
 
 ## Stack
-- Vanilla HTML / CSS / JS (zero build step)
-- Inter font (Google Fonts)
-- Pure CSS glassmorphism + backdrop-filter
-- Spring easing animations
-- Mouse-reactive ambient glow
-- 3D tilt parallax on cards
-- Cinematic overlay on click
+- **Next.js 14** (App Router, TypeScript)
+- **Framer Motion 11** — shared layout animations (`layoutId`), springs, parallax
+- **Tailwind CSS** — utility-first styling
+- **React Three Fiber** — ready for Phase 3 WebGL (DOF, bloom)
+
+## Features
+- 🌗 Ambient glow that follows the mouse
+- 🎞️ Mosaic grid with per-tile depth parallax
+- ✨ Spring-physics animations everywhere
+- 🔲 Idle float animation per tile
+- 🔍 Glassmorphism shine on hover
+- 🎬 Cinematic card overlay with shared `layoutId` transition
+- 🌫️ Dim + blur surrounding tiles on selection
+- 📱 Responsive (mobile-first)
+
+## Local Dev
+
+```bash
+npm install
+npm run dev
+# → http://localhost:3000
+```
 
 ## Deploy on Netlify
 
-**Option A — Drag & Drop:**
-1. Zip this folder
-2. Go to [netlify.com/drop](https://netlify.com/drop)
-3. Drag the zip → live in 10 seconds
+1. Connect `zabre/cinematic-portfolio` on [app.netlify.com](https://app.netlify.com)
+2. Build command: `npm run build`
+3. Publish directory: `.next`
+4. Install plugin: `@netlify/plugin-nextjs` (auto-detected via `netlify.toml`)
 
-**Option B — Git:**
-1. Connect your GitHub repo on [app.netlify.com](https://app.netlify.com)
-2. Base directory: `/`
-3. Publish directory: `.`
-4. Deploy
+## Customize Apps
 
-## Customize
+Edit `src/data/apps.ts` — replace `url: 'https://example.com'` with real links.
 
-Edit `data.js` to add/update your applications:
-```js
-{
-  id: 'my-app',
-  title: 'My App',
-  subtitle: 'Tech stack description',
-  description: 'Long description...',
-  url: 'https://your-app.netlify.app',  // ← real URL here
-  color: '#1A56DB',
-  accent: '#3B82F6',
-  emoji: '🚀',
-  tags: ['React', 'Python'],
-  size: 'large'  // large | medium | small
-}
-```
-
-## Next Steps (Phase 2)
-- Migrate to Next.js + Framer Motion
-- Add Three.js depth-of-field
-- Shared layout animations (layoutId)
-- WebGL ambient particles
+## Roadmap
+- [ ] Phase 3: Three.js `DepthOfField` + `Bloom` post-processing
+- [ ] Add real app screenshots as background images
+- [ ] Cursor custom (dot + ring)
+- [ ] Page transition animations
